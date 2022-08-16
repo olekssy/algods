@@ -32,22 +32,13 @@ class LinkedList:
 
     def __init__(self) -> None:
         self.head: Optional[ListNode] = self.clear()
-
-    @property
-    def size(self) -> int:
-        """ Number of nodes in the linked list. """
-
-        n = 0
-        head = self.head
-        while head:
-            head = head.next
-            n += 1
-        return n
+        self.size: int = 0
 
     def clear(self) -> None:
         """ Resets list to the initial (empty) state. """
 
         self.head = None
+        self.size = 0
 
     def add(self, key, val=None, index: int = 0) -> None:
         """ Inserts a key-val node at the index. """
@@ -68,6 +59,7 @@ class LinkedList:
                 index -= 1
             new_node.next = head.next
             head.next = new_node
+        self.size += 1
 
     def remove(self, index: int) -> None:
         """ Removes node at the index, if exists. """
@@ -83,6 +75,7 @@ class LinkedList:
         elif index < 1:
             # remove first node if matches the index
             self.head = self.head.next
+            self.size -= 1
         else:
             # link node following one at the index to the previous one
             head = self.head
@@ -94,6 +87,7 @@ class LinkedList:
                 head.next = head.next.next
             else:
                 head.next = None
+            self.size -= 1
 
     def get(self, index: int) -> tuple:
         """ Gets key-value of the node at the index, if node exists. """
