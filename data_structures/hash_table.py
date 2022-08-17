@@ -1,6 +1,7 @@
 """ Implementation of a hash table with common methods. """
 
-from typing import Union
+from typing import Optional, Union
+
 from data_structures.linked_list import LinkedList
 
 
@@ -81,7 +82,7 @@ class HashTable:
         if head.find(key) is not None:
             head.remove(head.find(key))
 
-    def get(self, key) -> any:
+    def get(self, key) -> Optional[any]:
         """ Gets value matching the key, if exists. """
 
         head = self._linked_lists[hash(key) % self._size]
