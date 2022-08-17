@@ -6,10 +6,10 @@ from typing import Optional
 class ListNode:
     """ Singly linked list node. """
 
-    def __init__(self, key: any = None, val: any = None) -> None:
+    def __init__(self, key: any = None, val: any = None, _next=None) -> None:
         self.key = key
         self.val = val
-        self.next = None
+        self.next = _next
 
 
 class LinkedList:
@@ -21,9 +21,9 @@ class LinkedList:
 
     Methods:
         clear(): resets list to the initial (empty) state.
-        add(key, val, index): inserts a key-value node at the index.
-        remove(index): removes node at the index, if exists.
-        get(index): gets key-value of the node at the index, if node exists.
+        add(key, val, index): inserts a key-value node at the index, if valid.
+        remove(index): removes node at the index, if valid.
+        get(index): gets key-value of the node at the index, if valid.
         find(key): finds index of the node matching key, if exists.
         to_list(): gets all key-value pairs as a list.
         rotate(k): rotate list by k places.
@@ -41,43 +41,39 @@ class LinkedList:
         self.size = 0
 
     def add(self, key, val=None, index: int = 0) -> None:
-        """ Inserts a key-val node at the index. """
+        """ Inserts a key-val node at the index, if valid. """
 
-        new_node = ListNode(key, val)
-        if self.head is None:
+        if index > self.size or index < 0:
+            # index is out of range
+            return
+        elif not index:
             # list is empty
+            new_node = ListNode(key, val, _next=self.head)
             self.head = new_node
-        elif index < 1:
-            # prepend the list
-            new_node.next = self.head
-            self.head = new_node
+            self.size += 1
         else:
             # traverse list until found an insertion point
+            new_node = ListNode(key, val)
             head = self.head
             while index > 1 and head.next:
                 head = head.next
                 index -= 1
             new_node.next = head.next
             head.next = new_node
-        self.size += 1
+            self.size += 1
 
     def remove(self, index: int) -> None:
-        """ Removes node at the index, if exists. """
+        """ Removes node at the index, if valid. """
 
-        # cap index in the arr size
-        index = min(index, self.size - 1)
-
-        if self.size < 1:
-            # do nothing if list is empty
+        if index < 0 or index > self.size - 1 or not self.size:
+            # index is out of range or list is empty
             return
-        if index < 0 and self.size > 0:
-            raise ValueError('Index must be non-negative.')
-        elif index < 1:
-            # remove first node if matches the index
+        elif not index:
+            # remove first node
             self.head = self.head.next
             self.size -= 1
         else:
-            # link node following one at the index to the previous one
+            # link node following one at the index to the previous
             head = self.head
             i = 0
             while head.next and i < index - 1:
@@ -89,16 +85,20 @@ class LinkedList:
                 head.next = None
             self.size -= 1
 
-    def get(self, index: int) -> tuple:
-        """ Gets key-value of the node at the index, if node exists. """
+    def get(self, index: int) -> Optional[tuple]:
+        """ Gets key-value of the node at the index, if valid. """
 
-        head = self.head
-        while head.next and index > 0:
-            head = head.next
-            index -= 1
-        return head.key, head.val
+        if index < 0 or index > self.size - 1 or not self.size:
+            # index is out of range or list is empty
+            return
+        else:
+            head = self.head
+            while head.next and index > 0:
+                head = head.next
+                index -= 1
+            return head.key, head.val
 
-    def find(self, key) -> int:
+    def find(self, key) -> Optional[int]:
         """ Finds index of the node matching key, if exists. """
 
         head = self.head
@@ -122,8 +122,8 @@ class LinkedList:
     def rotate(self, k: int) -> None:
         """ Rotate list by k places. """
 
-        # do nothing if k = 0, or list.size < 2
-        if k == 0 or self.size < 2:
+        if not k or self.size < 2:
+            # no iters on single element
             return
 
         # get last head
@@ -132,8 +132,8 @@ class LinkedList:
             last = last.next
 
         # remove redundant shifts
-        k %= self.size
-        k = self.size - k
+        k = self.size - k % self.size
+        print(k)
 
         last.next = self.head  # make cycle
         while k > 0:  # shift last by k* places
