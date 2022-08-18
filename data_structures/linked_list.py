@@ -1,12 +1,15 @@
-""" Implementation of a linked list with common methods. """
+""" Implementation of the linked list alike data structurers. """
 
-from typing import Optional
+from typing import Optional, Union
 
 
 class ListNode:
     """ Singly linked list node. """
 
-    def __init__(self, key: any = None, val: any = None, _next=None) -> None:
+    def __init__(self,
+                 key: Optional[Union[int, float, str]] = None,
+                 val: Optional[any] = None,
+                 _next=None) -> None:
         self.key = key
         self.val = val
         self.next = _next
@@ -16,7 +19,7 @@ class LinkedList:
     """ Singly linked list.
 
     Attributes:
-        head (ListNode): a head node of the linked list.
+        head (ListNode, None): a head node of the linked list.
         size (int): number of nodes in the linked list.
 
     Methods:
@@ -40,7 +43,10 @@ class LinkedList:
         self.head = None
         self.size = 0
 
-    def add(self, key, val=None, index: int = 0) -> None:
+    def add(self,
+            key: Optional[Union[int, float, str]],
+            val: Optional[any] = None,
+            index: int = 0) -> None:
         """ Inserts a key-val node at the index, if valid. """
 
         if index > self.size or index < 0:
@@ -98,7 +104,7 @@ class LinkedList:
                 index -= 1
             return head.key, head.val
 
-    def find(self, key) -> Optional[int]:
+    def find(self, key: Optional[Union[int, float, str]]) -> Optional[int]:
         """ Finds index of the node matching key, if exists. """
 
         head = self.head
@@ -152,6 +158,84 @@ class LinkedList:
             curr.next = self.head
             self.head = curr
             curr = next_node
+
+
+class Stack(LinkedList):
+    """ A stack data structure as a linked list. Supports LIFO ordering.
+
+    Attributes:
+        head (ListNode, None): a top node of the stack.
+        size (int): number of elements in the stack.
+
+    Methods:
+        push(item): adds an item to the top of the stack.
+        pop(): removes the top item from the stack, if exists.
+        peek(): returns the top of the stack.
+        is_empty(): returns true if and only if the stack is empty.
+        * other methods inherited from the parent class.
+    """
+
+    def __init__(self) -> None:
+        super().__init__()
+
+    def push(self, item: int) -> None:
+        """ Adds an item to the top of the stack. """
+
+        raise NotImplementedError
+
+    def pop(self) -> Optional[int]:
+        """ Removes the top item from the stack, if exists. """
+
+        raise NotImplementedError
+
+    def peek(self) -> Optional[int]:
+        """ Returns the top of the stack. """
+
+        raise NotImplementedError
+
+    def is_empty(self) -> bool:
+        """ Returns true if and only if the stack is empty. """
+
+        raise NotImplementedError
+
+
+class Queue(LinkedList):
+    """ A queue data structure as a linked list. Supports FIFO ordering.
+
+    Attributes:
+        head (ListNode, None): a top node of the queue.
+        tail (ListNode, None): a tail node of the queue.
+        size (int): number of elements in the queue.
+
+    Methods:
+        add(item): adds an item to the end of the list.
+        remove(): removes the first item in the list.
+        peek(): returns the top of the queue.
+        is_empty(): returns true if and only if the queue is empty.
+    """
+
+    def __init__(self) -> None:
+        super().__init__()
+
+    def add(self, item: int) -> None:
+        """ Adds an item to the end of the list. """
+
+        raise NotImplementedError
+
+    def remove(self) -> Optional[int]:
+        """ Removes the first item in the list. """
+
+        raise NotImplementedError
+
+    def peek(self) -> Optional[int]:
+        """ Returns the top of the queue. """
+
+        raise NotImplementedError
+
+    def is_empty(self) -> bool:
+        """ Returns true if and only if the queue is empty. """
+
+        raise NotImplementedError
 
 
 if __name__ == '__main__':
