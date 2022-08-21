@@ -181,22 +181,26 @@ class Stack(LinkedList):
     def push(self, item: int) -> None:
         """ Adds an item to the top of the stack. """
 
-        raise NotImplementedError
+        new_head = ListNode(val=item, _next=self.head)
+        self.head = new_head
+        self.size += 1
 
-    def pop(self) -> Optional[int]:
+    def pop(self) -> None:
         """ Removes the top item from the stack, if exists. """
 
-        raise NotImplementedError
+        if self.head:
+            self.head = self.head.next
+            self.size -= 1
 
     def peek(self) -> Optional[int]:
         """ Returns the top of the stack. """
 
-        raise NotImplementedError
+        return self.head.val
 
     def is_empty(self) -> bool:
         """ Returns true if and only if the stack is empty. """
 
-        raise NotImplementedError
+        return bool(self.size)
 
 
 class Queue(LinkedList):
