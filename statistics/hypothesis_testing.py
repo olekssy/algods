@@ -2,6 +2,7 @@
 
 import numpy as np
 import scipy.stats as st
+from statsmodels.tsa.stattools import adfuller, kpss
 
 # test size
 alpha = 0.025  # size of a test
@@ -80,6 +81,40 @@ print()
 corr, p_val = st.pearsonr(a, b)
 h0 = f'Retain H0: corr(A,B): {corr:4.2f} = 0.0'
 h1 = f'Reject H0: corr(A,B): {corr:4.2f} ≠ 0.0'
+
+if p_val < alpha:
+    print(h1)
+    print(f'p-value: {p_val:4.4f} < alpha ({alpha})')
+else:
+    print(h0)
+    print(f'p-value: {p_val:4.4f} > alpha ({alpha})')
+print()
+
+# ADF unit root test
+# tests if a time series is autoregressive
+h0 = 'Retain H0: a unit root is present (series is non-stationary)'
+h1 = 'Reject H0: a unit root is not present (series is stationary)'
+
+adf_res = adfuller(np.random.randn(n))
+t_stat = adf_res[0]
+p_val = adf_res[1]
+
+if p_val < alpha:
+    print(h1)
+    print(f'p-value: {p_val:4.4f} < alpha ({alpha})')
+else:
+    print(h0)
+    print(f'p-value: {p_val:4.4f} > alpha ({alpha})')
+print()
+
+# KPSS test
+# tests if a time series is trend stationary
+h0 = 'Retain H0: the time series is trend-stationary'
+h1 = 'Reject H0: the time series is not trend-stationary'
+
+kpss_res = kpss(np.linspace(1, 3, n))
+t_stat = kpss_res[0]
+p_val = kpss_res[1]
 
 if p_val < alpha:
     print(h1)

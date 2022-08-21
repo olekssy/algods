@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 tensorflow = ">=2.9"
 scipy = ">=1.9"
+statsmodels = "*"
 
 [dev-packages]
 flake8 = "*"
