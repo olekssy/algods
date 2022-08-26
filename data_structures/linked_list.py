@@ -31,6 +31,7 @@ class LinkedList:
         to_list(): gets all key-value pairs as a list.
         rotate(k): rotate list by k places.
         reverse(): reverses linked list inplace.
+        is_palindrom(): checks if linked list values form a palidrom.
     """
 
     def __init__(self) -> None:
@@ -154,10 +155,46 @@ class LinkedList:
         curr = self.head
         self.head = None
         while curr:
-            next_node = curr.next
+            tail = curr.next
             curr.next = self.head
             self.head = curr
-            curr = next_node
+            curr = tail
+
+    def is_palindrom(self) -> bool:
+        """ Checks if linked list values form a palidrom. """
+
+        if not self.head:
+            # empty list is not a palindrom
+            return False
+        if not self.head.next:
+            # a list with single element is a palindrom
+            return True
+
+        # split list in half with slow-fast pointers
+        slow = self.head
+        fast = self.head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        second = slow
+
+        # reverse the other half
+        curr = second
+        second = None
+        while curr:
+            tail = curr.next
+            curr.next = second
+            second = curr
+            curr = tail
+
+        # compare values of the first and second halves
+        first = self.head
+        while second.next:
+            if first.val != second.val:
+                return False
+            first = first.next
+            second = second.next
+        return True
 
 
 class Stack(LinkedList):

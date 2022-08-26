@@ -130,4 +130,4 @@ dmypy.json
 
 # Custom types
 .DS_Store
-target
+.vscode
