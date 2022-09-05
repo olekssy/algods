@@ -1,7 +1,6 @@
 """ Unit tests for a linked list. """
 
 import pytest
-
 from data_structures import linked_list
 from data_structures.linked_list import LinkedList
 
@@ -103,7 +102,7 @@ def two_palindrom() -> LinkedList:
 def test_is_palindrome(ll: str, expected: bool, request):
     """ Tests correctness of the LL palindrom checker method. """
 
-    assert request.getfixturevalue(ll).is_palindrom() == expected
+    assert linked_list.is_palindrom(request.getfixturevalue(ll)) == expected
 
 
 @pytest.mark.parametrize(
@@ -133,3 +132,67 @@ def test_merge_sorted(l1: str, l2: str, expected: list[int], request):
     list2.reverse()
     merged = linked_list.merge_sorted(list1, list2)
     assert merged.to_list() == expected
+
+
+@pytest.mark.parametrize(argnames=['i', 'expected'],
+                         argvalues=[
+                             (0, [99, 3, 2, 1]),
+                             (1, [3, 99, 2, 1]),
+                             (3, [3, 2, 1, 99]),
+                             (4, [3, 2, 1]),
+                         ])
+def test_add(list_3: LinkedList, i: int, expected: list[int]):
+    """ Tests adding elements at different indices. """
+
+    list_3.add(99, index=i)
+    assert list_3.to_list() == expected
+
+
+def test_clear(list_3: LinkedList):
+    """ Tests resetting a list. """
+
+    list_3.clear()
+    assert not list_3.size
+
+
+@pytest.mark.parametrize(argnames=['i', 'expected'],
+                         argvalues=[
+                             (0, [2, 1]),
+                             (1, [3, 1]),
+                             (2, [3, 2]),
+                             (4, [3, 2, 1]),
+                             (-1, [3, 2, 1]),
+                         ])
+def test_remove(list_3: LinkedList, i: int, expected: list[int]):
+    """ Tests removing a node at index. """
+
+    list_3.remove(i)
+    assert list_3.to_list() == expected
+
+
+@pytest.mark.parametrize(argnames=['i', 'expected'],
+                         argvalues=[
+                             (0, 3),
+                             (1, 2),
+                             (2, 1),
+                             (4, None),
+                             (-1, None),
+                         ])
+def test_getter(list_3: LinkedList, i: int, expected: int):
+    """ Tests value getter given index. """
+
+    assert list_3.get(i) == expected
+
+
+@pytest.mark.parametrize(argnames=['val', 'expected'],
+                         argvalues=[
+                             (0, None),
+                             (1, 2),
+                             (2, 1),
+                             (3, 0),
+                             (-1, None),
+                         ])
+def test_finder(list_3: LinkedList, val: int, expected: int):
+    """ Tests index finder. """
+
+    assert list_3.find(val) == expected

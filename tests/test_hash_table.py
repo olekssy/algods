@@ -1,7 +1,6 @@
 """ Unit tests for a hash table. """
 
 import pytest
-
 from data_structures.hash_table import HashTable
 
 
