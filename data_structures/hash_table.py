@@ -2,7 +2,77 @@
 
 from typing import Optional, Union
 
-from data_structures.linked_list import LinkedList
+from data_structures import linked_list
+
+
+class KVNode(linked_list.Node):
+    """ Singly linked list node holding key-value attributes. """
+
+    def __init__(self,
+                 key: any = None,
+                 val: Optional[int] = None,
+                 next=None) -> None:
+        super().__init__(val, next)
+        self.key = key  # an immutable hashable object, e.g. str, int.
+
+
+class KVLinkedList(linked_list.LinkedList):
+    """ Singly linked list adapted for a key-value storage.
+
+    Attributes:
+        head (Node, None): a head node of the linked list.
+        size (int): number of nodes in the linked list.
+
+    Methods:
+        add(key, val): inserts a node holding a key-val pair.
+        get(index): gets key-val of the node at the index, if valid.
+        find(val): finds index of the node matching key, if exists.
+        to_list(): gets all key-value pairs as a list.
+        * methods inherited from the parent class.
+    """
+
+    def __init__(self) -> None:
+        super().__init__()
+
+    def add(self, key: any, val: int) -> None:
+        """ Inserts a node holding a key-val pair. """
+
+        self.head = KVNode(key, val, next=self.head)
+
+    def find(self, key: any) -> Optional[int]:
+        """ Finds index of the node matching key, if exists. """
+
+        head = self.head
+        i = 0
+        while head:
+            if head.key == key:
+                return i
+            head = head.next
+            i += 1
+
+    def to_list(self) -> list[tuple]:
+        """ Gets all key-value pairs as a list. """
+
+        vals = list()
+        head = self.head
+        while head:
+            vals.append((head.key, head.val))
+            head = head.next
+        return vals
+
+    def get(self, index: int) -> Optional[tuple]:
+        """ Gets key-val of the node at the index, if valid. """
+
+        if index < 0 or index > self.size - 1 or not self.size:
+            # index is out of range or list is empty
+            return
+
+        else:
+            head = self.head
+            while head.next and index > 0:
+                head = head.next
+                index -= 1
+            return head.key, head.val
 
 
 class HashTable:
@@ -42,7 +112,7 @@ class HashTable:
         for head in self._linked_lists:
             i = 0
             while i < head.size:
-                # a key is at 0 index in the key-val tuple
+                # a key is at 0th index in the key-val tuple
                 items.append(head.get(i)[not key])
                 i += 1
         return set(items) if key else items
@@ -62,8 +132,8 @@ class HashTable:
     def clear(self):
         """ Resets hash table to the initial state. """
 
-        self._linked_lists: list[LinkedList] = [
-            LinkedList() for i in range(self._size)
+        self._linked_lists: list[KVLinkedList] = [
+            KVLinkedList() for i in range(self._size)
         ]
 
     def put(self, key, val) -> None:
