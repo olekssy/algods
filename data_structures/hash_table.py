@@ -1,6 +1,6 @@
 """ Implementation of a hash table with common methods. """
 
-from typing import Optional, Union
+from typing import Optional
 
 from data_structures import linked_list
 
@@ -105,7 +105,7 @@ class HashTable:
             pairs |= set(head.to_list())
         return pairs
 
-    def _get_item(self, key: bool) -> Union[set, list]:
+    def _get_item(self, key: bool) -> list:
         """ Gets all keys or values from the hash table. """
 
         items = list()  # collection of keys or values
@@ -115,13 +115,13 @@ class HashTable:
                 # a key is at 0th index in the key-val tuple
                 items.append(head.get(i)[not key])
                 i += 1
-        return set(items) if key else items
+        return items
 
     @property
     def keys(self) -> set:
         """ Set of keys in the hash table. """
 
-        return self._get_item(key=True)
+        return set(self._get_item(key=True))
 
     @property
     def values(self) -> list:
