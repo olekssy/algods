@@ -5,7 +5,7 @@ from typing import Optional
 from data_structures import linked_list
 
 
-class KVNode(linked_list.Node):
+class Node(linked_list.Node):
     """ Singly linked list node holding key-value attributes. """
 
     def __init__(self,
@@ -16,7 +16,7 @@ class KVNode(linked_list.Node):
         self.key = key  # an immutable hashable object, e.g. str, int.
 
 
-class KVLinkedList(linked_list.LinkedList):
+class LinkedList(linked_list.LinkedList):
     """ Singly linked list adapted for a key-value storage.
 
     Attributes:
@@ -37,7 +37,7 @@ class KVLinkedList(linked_list.LinkedList):
     def add(self, key: any, val: int) -> None:
         """ Inserts a node holding a key-val pair. """
 
-        self.head = KVNode(key, val, next=self.head)
+        self.head = Node(key, val, next=self.head)
 
     def find(self, key: any) -> Optional[int]:
         """ Finds index of the node matching key, if exists. """
@@ -132,9 +132,7 @@ class HashTable:
     def clear(self):
         """ Resets hash table to the initial state. """
 
-        self._linked_lists: list[KVLinkedList] = [
-            KVLinkedList() for i in range(self._size)
-        ]
+        self._linked_lists = [LinkedList() for i in range(self._size)]
 
     def put(self, key, val) -> None:
         """ Adds new record into the hash table. """
