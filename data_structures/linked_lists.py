@@ -6,9 +6,17 @@ from typing import Optional
 class Node:
     """ Singly linked list node. """
 
-    def __init__(self, val: Optional[int] = None, next=None) -> None:
+    def __init__(self, val: int = 0, next=None) -> None:
         self.val = val
         self.next = next
+
+
+class DoublyNode(Node):
+    """ Doubly linked list node. """
+
+    def __init__(self, val: int = 0, next=None, prev=None) -> None:
+        super().__init__(val, next)
+        self.prev = prev
 
 
 class LinkedList:
