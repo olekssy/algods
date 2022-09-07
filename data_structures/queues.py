@@ -2,43 +2,77 @@
 
 from typing import Optional
 
-from data_structures.linked_lists import LinkedList
+from data_structures import linked_lists
 
 
-class Queue(LinkedList):
-    """ A queue data structure as a linked list. Supports FIFO ordering.
+class CircularQueue:
+    """ A queue data structure as a linked list with a fixed size k.
+        Supports FIFO ordering.
 
     Attributes:
-        head (ListNode, None): a top node of the queue.
-        tail (ListNode, None): a tail node of the queue.
-        size (int): number of elements in the queue.
+        front (int, None): Gets the front item from the queue, if not empty.
+        rear (int, None): Gets the last item from the queue, if not empty.
+        size (int): Number of elements present in the queue.
+        capacity (int): Number of elements the queue can hold.
 
     Methods:
-        add(item): adds an item to the end of the list.
-        remove(): removes the first item in the list.
-        peek(): returns the top of the queue.
-        is_empty(): returns true if and only if the queue is empty.
+        bool enqueue(val): Inserts an element into the circular queue.
+            Returns true if the operation is successful.
+        bool dequeue(): Deletes a front element from the circular queue.
+            Returns true if the operation is successful.
+        bool is_empty(): Checks whether the circular queue is empty or not.
+        bool is_full(): Checks whether the circular queue is full or not.
     """
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, capacity: int = 5) -> None:
+        self.capacity = capacity
+        self.size: int = 0
+        self.head: Optional[linked_lists.Node] = None
+        self.tail: Optional[linked_lists.Node] = None
 
-    def add(self, item: int) -> None:
-        """ Adds an item to the end of the list. """
+    @property
+    def front(self) -> Optional[int]:
+        """ Gets the front item from the queue, if not empty. """
 
-        raise NotImplementedError
+        return self.head.val if not self.is_empty() else None
 
-    def remove(self) -> Optional[int]:
-        """ Removes the first item in the list. """
+    @property
+    def rear(self) -> Optional[int]:
+        """ Gets the last item from the queue, if not empty. """
 
-        raise NotImplementedError
+        return self.tail.val if not self.is_empty() else None
 
-    def peek(self) -> Optional[int]:
-        """ Returns the top of the queue. """
+    def enqueue(self, val: int) -> bool:
+        """ Inserts an element into the circular queue.
+            Returns true if the operation is successful. """
 
-        raise NotImplementedError
+        if self.is_full():
+            return False
+        if self.is_empty():
+            self.head = linked_lists.Node(val)
+            self.tail = self.head
+        else:
+            self.tail.next = linked_lists.Node(val)
+            self.tail = self.tail.next
+        self.size += 1
+        return True
+
+    def dequeue(self) -> bool:
+        """ Deletes a front element from the circular queue.
+            Returns true if the operation is successful. """
+
+        if self.is_empty():
+            return False
+        self.head = self.head.next
+        self.size -= 1
+        return True
 
     def is_empty(self) -> bool:
-        """ Returns true if and only if the queue is empty. """
+        """ Checks whether the circular queue is empty or not. """
 
-        raise NotImplementedError
+        return not self.size
+
+    def is_full(self) -> bool:
+        """ Checks whether the circular queue is full or not. """
+
+        return self.size == self.capacity
