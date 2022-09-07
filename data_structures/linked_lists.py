@@ -1,4 +1,4 @@
-""" Implementation of a linked list data structurer with common ops. """
+""" Implementations of a linked list with common ops. """
 
 from typing import Optional
 
@@ -19,7 +19,6 @@ class LinkedList:
         size (int): number of nodes in the linked list.
 
     Methods:
-        clear(): resets list to the initial (empty) state.
         add(val, index): inserts a value node at the index, if valid.
         remove(index): removes node at the index, if valid.
         get(index): gets value of the node at the index, if valid.
@@ -29,31 +28,16 @@ class LinkedList:
     """
 
     def __init__(self) -> None:
-        self.head: Optional[Node] = self.clear()
-        self.size: int
+        self.head: Optional[Node] = None
+        self.size: int = 0
 
-    def clear(self) -> None:
-        """ Resets list to the initial (empty) state. """
-
-        self.head = None
-
-    @property
-    def size(self) -> int:
-        """ Number of nodes in the list. """
-
-        n: int = 0
-        head = self.head
-        while head:
-            head = head.next
-            n += 1
-        return n
-
-    def add(self, val: int, index: int = 0) -> None:
-        """ Inserts a value node at the index, if valid. """
+    def add(self, val: int, index: int = 0) -> bool:
+        """ Inserts a value node at the index, if valid.
+            Returns True if success, False otherwise. """
 
         if index > self.size or index < 0:
             # index is out of range
-            return
+            return False
 
         elif not index:
             # list is empty
@@ -70,12 +54,16 @@ class LinkedList:
             new_node.next = head.next
             head.next = new_node
 
-    def remove(self, index: int) -> None:
-        """ Removes node at the index, if valid. """
+        self.size += 1
+        return True
+
+    def remove(self, index: int) -> bool:
+        """ Removes node at the index, if valid.
+            Returns True if success, False otherwise. """
 
         if index < 0 or index > self.size - 1 or not self.size:
             # index is out of range or list is empty
-            return
+            return False
 
         elif not index:
             # remove first node
@@ -92,6 +80,9 @@ class LinkedList:
                 head.next = head.next.next
             else:
                 head.next = None
+
+        self.size -= 1
+        return True
 
     def get(self, index: int) -> Optional[int]:
         """ Gets value of the node at the index, if valid. """
@@ -159,8 +150,6 @@ def merge_sorted(list1: LinkedList, list2: LinkedList) -> LinkedList:
         return list2
     elif not list2.size:
         return list1
-    elif (not list1.size) and (not list2.size):
-        return LinkedList()
 
     # transfer vals from lists until either one is exhausted
     dummy: Node = Node()

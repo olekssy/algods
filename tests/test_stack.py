@@ -1,7 +1,7 @@
 """ Unit tests for a stack. """
 
 import pytest
-from data_structures.stack import Stack
+from data_structures.stacks import Stack
 
 
 @pytest.fixture

@@ -6,10 +6,18 @@
 
 A curated collection of algorithms and data structures.
 
+## Data Structures
+
+Native implementation with common methods and operations.
+
+* [Linked list](data_structures/linked_lists.py)
+* [Hash Table](data_structures/hash_tables.py)
+* [Queue](data_structures/queues.py)
+* [Stack](data_structures/stacks.py)
+
 ## Dependencies
 
 Install environment and dependencies with `pipenv sync --dev`
 
-* Python 3.10
-* pipenv >= 2022.5.2
-* pyenv >= 2.2.5
+* `pipenv >= 2022.5.2`
+* `pyenv >= 2.2.5`

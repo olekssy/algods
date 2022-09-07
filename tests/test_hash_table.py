@@ -1,7 +1,7 @@
 """ Unit tests for a hash table. """
 
 import pytest
-from data_structures.hash_table import HashTable
+from data_structures.hash_tables import HashTable
 
 
 @pytest.fixture
@@ -31,13 +31,6 @@ def test_items(ht_3: HashTable):
     """ Tests items attribute. """
 
     assert ht_3.items == {(1, 11), (2, 22), (3, 33)}
-
-
-def test_clear(ht_3: HashTable):
-    """ Tests resetting a ht. """
-
-    ht_3.clear()
-    assert not ht_3.items
 
 
 def test_put(ht_3: HashTable):
