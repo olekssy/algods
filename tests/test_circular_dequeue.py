@@ -20,32 +20,32 @@ def test_enqueue():
 
 def test_front_rear():
     q = CircularDeque(3)
-    q.enqueue_last(11)
+    assert q.enqueue_last(11)
     assert q.front == 11
     assert q.rear == 11
-    q.enqueue_front(22)
+    assert q.enqueue_front(22)
     assert q.front == 22
     assert q.rear == 11
-    q.enqueue_front(33)
+    assert q.enqueue_front(33)
     assert q.front == 33
     assert q.rear == 11
-    q.enqueue_last(44)
+    assert not q.enqueue_last(44)
     assert q.front == 33
     assert q.rear == 11
 
 
 def test_dequeue():
     q = CircularDeque(3)
-    q.enqueue_front(11)
+    assert q.enqueue_front(11)
     assert q.dequeue_last()
-    q.enqueue_last(22)
+    assert q.enqueue_last(22)
     assert q.dequeue_front()
-    q.enqueue_last(33)
+    assert q.enqueue_last(33)
     assert q.front == 33
     assert q.rear == 33
     assert q.dequeue_last()
     assert q.is_empty()
     assert not q.dequeue_front()
-    q.enqueue_front(44)
+    assert q.enqueue_front(44)
     assert q.front == 44
     assert q.rear == 44
