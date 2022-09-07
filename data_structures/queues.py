@@ -1,8 +1,8 @@
-""" Implementation of a queue data structure. """
+""" Implementations of a queue. """
 
 from typing import Optional
 
-from data_structures.linked_list import LinkedList
+from data_structures.linked_lists import LinkedList
 
 
 class Queue(LinkedList):

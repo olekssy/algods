@@ -1,8 +1,8 @@
 """ Unit tests for a linked list. """
 
 import pytest
-from data_structures import linked_list
-from data_structures.linked_list import LinkedList
+from data_structures import linked_lists
+from data_structures.linked_lists import LinkedList
 
 
 @pytest.fixture
@@ -39,18 +39,6 @@ def list_3() -> LinkedList:
     ll.add(1)
     ll.add(2)
     ll.add(3)
-    return ll
-
-
-@pytest.fixture
-def list_4() -> LinkedList:
-    """ Gets a LL instance with 4 elements. """
-
-    ll = LinkedList()
-    ll.add(1)
-    ll.add(2)
-    ll.add(3)
-    ll.add(4)
     return ll
 
 
@@ -97,17 +85,15 @@ def two_palindrom() -> LinkedList:
                              ('list_0', False),
                              ('list_1', True),
                              ('list_3', False),
-                             ('list_4', False),
                          ])
 def test_is_palindrome(ll: str, expected: bool, request):
     """ Tests correctness of the LL palindrom checker method. """
 
-    assert linked_list.is_palindrom(request.getfixturevalue(ll)) == expected
+    assert linked_lists.is_palindrom(request.getfixturevalue(ll)) == expected
 
 
-@pytest.mark.parametrize(
-    argnames='ll',
-    argvalues=['list_0', 'list_1', 'list_2', 'list_3', 'list_4'])
+@pytest.mark.parametrize(argnames='ll',
+                         argvalues=['list_0', 'list_1', 'list_2', 'list_3'])
 def test_reverse(ll: str, request):
     ll = request.getfixturevalue(ll)
     ll.reverse()
@@ -121,7 +107,6 @@ def test_reverse(ll: str, request):
                              ('list_0', 'list_1', [1]),
                              ('list_1', 'list_2', [1, 1, 2]),
                              ('list_2', 'list_3', [1, 1, 2, 2, 3]),
-                             ('list_3', 'list_4', [1, 1, 2, 2, 3, 3, 4]),
                          ])
 def test_merge_sorted(l1: str, l2: str, expected: list[int], request):
     """ Tests correctness of the LL palindrom checker method. """
@@ -130,7 +115,7 @@ def test_merge_sorted(l1: str, l2: str, expected: list[int], request):
     list1.reverse()
     list2: LinkedList = request.getfixturevalue(l2)
     list2.reverse()
-    merged = linked_list.merge_sorted(list1, list2)
+    merged = linked_lists.merge_sorted(list1, list2)
     assert merged.to_list() == expected
 
 
@@ -146,13 +131,6 @@ def test_add(list_3: LinkedList, i: int, expected: list[int]):
 
     list_3.add(99, index=i)
     assert list_3.to_list() == expected
-
-
-def test_clear(list_3: LinkedList):
-    """ Tests resetting a list. """
-
-    list_3.clear()
-    assert not list_3.size
 
 
 @pytest.mark.parametrize(argnames=['i', 'expected'],
@@ -178,7 +156,7 @@ def test_remove(list_3: LinkedList, i: int, expected: list[int]):
                              (4, None),
                              (-1, None),
                          ])
-def test_getter(list_3: LinkedList, i: int, expected: int):
+def test_get(list_3: LinkedList, i: int, expected: int):
     """ Tests value getter given index. """
 
     assert list_3.get(i) == expected
@@ -192,7 +170,28 @@ def test_getter(list_3: LinkedList, i: int, expected: int):
                              (3, 0),
                              (-1, None),
                          ])
-def test_finder(list_3: LinkedList, val: int, expected: int):
+def test_find(list_3: LinkedList, val: int, expected: int):
     """ Tests index finder. """
 
     assert list_3.find(val) == expected
+
+
+def test_size(list_3: LinkedList):
+    """ Tests list size counter. """
+
+    assert list_3.size == 3
+    list_3.remove(0)
+    list_3.remove(0)
+    assert list_3.size == 1
+    list_3.add(11)
+    list_3.add(12)
+    list_3.remove(0)
+    list_3.add(12)
+    list_3.remove(0)
+    list_3.add(12)
+    assert list_3.size == 3
+    list_3.remove(0)
+    list_3.remove(0)
+    list_3.remove(0)
+    list_3.remove(0)
+    assert list_3.size == 0

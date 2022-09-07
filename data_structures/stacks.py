@@ -1,11 +1,11 @@
-""" Implementation of a stack data structure. """
+""" Implementations of a stack. """
 
 from typing import Optional
 
-from data_structures import linked_list
+from data_structures import linked_lists
 
 
-class Stack(linked_list.LinkedList):
+class Stack(linked_lists.LinkedList):
     """ A stack data structure as a linked list. Supports LIFO ordering.
 
     Attributes:
@@ -26,13 +26,15 @@ class Stack(linked_list.LinkedList):
     def push(self, item: int) -> None:
         """ Adds an item to the top of the stack. """
 
-        self.head = linked_list.Node(val=item, next=self.head)
+        self.head = linked_lists.Node(val=item, next=self.head)
+        self.size += 1
 
     def pop(self) -> None:
         """ Removes the top item from the stack, if exists. """
 
         if self.head:
             self.head = self.head.next
+            self.size -= 1
 
     def peek(self) -> Optional[int]:
         """ Returns the top of the stack. """
