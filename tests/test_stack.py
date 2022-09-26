@@ -49,3 +49,14 @@ def test_is_empty(stack: Stack):
     assert not stack.is_empty()
     stack.pop()
     assert stack.is_empty()
+
+
+def test_min_element(stack: Stack):
+    """ Tests min element getter. """
+
+    assert stack.min() == 1
+    stack.push(-1)
+    assert stack.min() == -1
+    while not stack.is_empty():
+        stack.pop()
+    assert stack.min() is None
