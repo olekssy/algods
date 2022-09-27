@@ -16,9 +16,7 @@ class CircularQueue:
 
     Methods:
         bool enqueue(val): Inserts an element into the circular queue.
-            Returns true if the operation is successful, or false otherwise.
         bool dequeue(): Deletes a front element from the circular queue.
-            Returns true if the operation is successful, or false otherwise.
         bool is_empty(): Checks whether the circular queue is empty or not.
         bool is_full(): Checks whether the circular queue is full or not.
     """
@@ -88,13 +86,9 @@ class CircularDeque(CircularQueue):
 
     Methods:
         bool enqueue_front(): Adds an item at the front of Deque.
-            Returns true if the operation is successful, false otherwise.
         bool enqueue_last() Adds an item at the rear of Deque.
-            Returns true if the operation is successful, false otherwise.
         bool dequeue_front() Deletes an item from the front of Deque.
-            Returns true if the operation is successful, or false otherwise.
         bool dequeue_last() Deletes an item from the rear of Deque.
-            Returns true if the operation is successful, or false otherwise.
         bool is_empty(): Checks whether the circular queue is empty or not.
         bool is_full(): Checks whether the circular queue is full or not.
     """

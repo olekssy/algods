@@ -57,3 +57,10 @@ def test_getter(ht_3: HashTable):
 
     assert ht_3.get(3) == 33
     assert ht_3.get(5) is None
+
+
+def test_size(ht_3: HashTable):
+    """ Tests size attribute. """
+
+    assert ht_3.size == 10
+    assert len(ht_3.lists) == 10
