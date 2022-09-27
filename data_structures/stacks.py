@@ -5,7 +5,8 @@ from typing import Optional
 from data_structures import linked_lists
 
 
-class Node(linked_lists.Node):
+class StackNode(linked_lists.Node):
+    """ Linked list node adapted for a Stack. Holds min val of tail nodes. """
 
     def __init__(self, val: int = 0, next=None, min=0) -> None:
         super().__init__(val, next)
@@ -14,7 +15,7 @@ class Node(linked_lists.Node):
 
 class Stack(linked_lists.LinkedList):
     """ A stack data structure as a linked list. Supports LIFO ordering and all
-        methods in O(N).
+        methods in O(1).
 
     Attributes:
         head (ListNode, None): a top node of the stack.
@@ -35,16 +36,18 @@ class Stack(linked_lists.LinkedList):
     def push(self, item: int) -> None:
         """ Adds an item to the top of the stack. """
 
-        _min = min(self.head.min, item) if self.head else item
-        self.head = Node(val=item, next=self.head, min=_min)
+        min_element = min(self.head.min, item) if self.head else item
+        self.head = StackNode(val=item, next=self.head, min=min_element)
         self.size += 1
 
-    def pop(self) -> None:
+    def pop(self) -> bool:
         """ Removes the top item from the stack, if exists. """
 
         if self.head:
             self.head = self.head.next
             self.size -= 1
+            return True
+        return False
 
     def peek(self) -> Optional[int]:
         """ Returns the top of the stack. """
