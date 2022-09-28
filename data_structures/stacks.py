@@ -2,10 +2,10 @@
 
 from typing import Optional
 
-from data_structures import linked_lists
+from data_structures import lists
 
 
-class StackNode(linked_lists.Node):
+class StackNode(lists.ListNode):
     """ Linked list node adapted for a Stack. Holds min val of tail nodes. """
 
     def __init__(self, val: int = 0, next=None, min=0) -> None:
@@ -13,7 +13,7 @@ class StackNode(linked_lists.Node):
         self.min = min
 
 
-class Stack(linked_lists.LinkedList):
+class Stack(lists.List):
     """ A stack data structure as a linked list. Supports LIFO ordering and all
         methods in O(1).
 

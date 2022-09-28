@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from data_structures import linked_lists
+from data_structures import lists
 
 
 class CircularQueue:
@@ -24,8 +24,8 @@ class CircularQueue:
     def __init__(self, capacity: int = 5) -> None:
         self.capacity = capacity
         self.size: int = 0
-        self.head: Optional[linked_lists.Node] = None
-        self.tail: Optional[linked_lists.Node] = None
+        self.head: Optional[lists.ListNode] = None
+        self.tail: Optional[lists.ListNode] = None
 
     @property
     def front(self) -> Optional[int]:
@@ -46,10 +46,10 @@ class CircularQueue:
         if self.is_full():
             return False
         if self.is_empty():
-            self.head = linked_lists.Node(val)
+            self.head = lists.ListNode(val)
             self.tail = self.head
         else:
-            self.tail.next = linked_lists.Node(val)
+            self.tail.next = lists.ListNode(val)
             self.tail = self.tail.next
         self.size += 1
         return True
@@ -95,8 +95,8 @@ class CircularDeque(CircularQueue):
 
     def __init__(self, capacity: int = 5) -> None:
         super().__init__(capacity)
-        self.head: Optional[linked_lists.DoublyNode] = None
-        self.tail: Optional[linked_lists.DoublyNode] = None
+        self.head: Optional[lists.DoublyNode] = None
+        self.tail: Optional[lists.DoublyNode] = None
 
     def enqueue_front(self, value: int) -> bool:
         """ Adds an item at the front of Deque.
@@ -106,11 +106,11 @@ class CircularDeque(CircularQueue):
             return False
         elif self.is_empty():
             # front and rear point to the same node
-            self.head = linked_lists.DoublyNode(value)
+            self.head = lists.DoublyNode(value)
             self.tail = self.head
         else:
             # link existing nodes
-            head = linked_lists.DoublyNode(value, next=self.head)
+            head = lists.DoublyNode(value, next=self.head)
             self.head.prev = head
             self.head = self.head.prev
         self.size += 1
@@ -124,11 +124,11 @@ class CircularDeque(CircularQueue):
             return False
         elif self.is_empty():
             # front and rear point to the same node
-            self.tail = linked_lists.DoublyNode(value)
+            self.tail = lists.DoublyNode(value)
             self.head = self.tail
         else:
             # link existing nodes
-            tail = linked_lists.DoublyNode(value, prev=self.rear)
+            tail = lists.DoublyNode(value, prev=self.rear)
             self.tail.next = tail
             self.tail = self.tail.next
         self.size += 1
