@@ -3,7 +3,7 @@
 from typing import Optional
 
 
-class Node:
+class ListNode:
     """ Singly linked list node. """
 
     def __init__(self, val: int = 0, next=None) -> None:
@@ -11,7 +11,7 @@ class Node:
         self.next = next
 
 
-class DoublyNode(Node):
+class DoublyNode(ListNode):
     """ Doubly linked list node. """
 
     def __init__(self, val: int = 0, next=None, prev=None) -> None:
@@ -19,7 +19,7 @@ class DoublyNode(Node):
         self.prev = prev
 
 
-class LinkedList:
+class List:
     """ Singly linked list.
 
     Attributes:
@@ -36,7 +36,7 @@ class LinkedList:
     """
 
     def __init__(self) -> None:
-        self.head: Optional[Node] = None
+        self.head: Optional[ListNode] = None
         self.size: int = 0
 
     def add(self, val: int, index: int = 0) -> bool:
@@ -49,12 +49,12 @@ class LinkedList:
 
         elif not index:
             # list is empty
-            new_node = Node(val, next=self.head)
+            new_node = ListNode(val, next=self.head)
             self.head = new_node
 
         else:
             # traverse list until found an insertion point
-            new_node = Node(val)
+            new_node = ListNode(val)
             head = self.head
             while index > 1 and head.next:
                 head = head.next
@@ -140,7 +140,7 @@ class LinkedList:
 
 
 # Linked List ops
-def merge_sorted(list1: LinkedList, list2: LinkedList) -> LinkedList:
+def merge_sorted(list1: List, list2: List) -> List:
     """ Merges two sorted singly linked lists into a one sorted list.
         NOTE: the method yields undefined result if passed unsorted list.
         Runtime: O(N), memory: O(N).
@@ -160,16 +160,16 @@ def merge_sorted(list1: LinkedList, list2: LinkedList) -> LinkedList:
         return list1
 
     # transfer vals from lists until either one is exhausted
-    dummy: Node = Node()
+    dummy: ListNode = ListNode()
     head = dummy
-    h1: Node = list1.head
-    h2: Node = list2.head
+    h1: ListNode = list1.head
+    h2: ListNode = list2.head
     while h1 and h2:
         if h1.val < h2.val:
-            head.next = Node(h1.val)
+            head.next = ListNode(h1.val)
             h1 = h1.next
         else:
-            head.next = Node(h2.val)
+            head.next = ListNode(h2.val)
             h2 = h2.next
         head = head.next
 
@@ -180,15 +180,15 @@ def merge_sorted(list1: LinkedList, list2: LinkedList) -> LinkedList:
         head.next = h2
 
     # transform node into LL
-    merged = LinkedList()
+    merged = List()
     merged.head = dummy.next
     return merged
 
 
-def is_palindrom(linked_list: LinkedList) -> bool:
+def is_palindrom(linked_list: List) -> bool:
     """ Checks if linked list values form a palidrom. """
 
-    head: Node = linked_list.head
+    head: ListNode = linked_list.head
 
     if not head:
         # empty list is not a palindrom
@@ -225,7 +225,7 @@ def is_palindrom(linked_list: LinkedList) -> bool:
     return True
 
 
-def rotate(linked_list: LinkedList, k: int) -> None:
+def rotate(linked_list: List, k: int) -> None:
     """ Rotate a linked list by k places. """
 
     if not k or linked_list.size < 2:

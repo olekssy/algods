@@ -2,10 +2,10 @@
 
 from typing import Optional
 
-from data_structures import linked_lists
+from data_structures import lists
 
 
-class KVNode(linked_lists.Node):
+class KVNode(lists.ListNode):
     """ Singly linked list node holding key-value attributes. """
 
     def __init__(self,
@@ -16,7 +16,7 @@ class KVNode(linked_lists.Node):
         self.key = key  # an immutable hashable object, e.g. str, int.
 
 
-class KVLL(linked_lists.LinkedList):
+class KVList(lists.List):
     """ Singly linked list adapted for a key-value storage.
 
     Attributes:
@@ -95,7 +95,7 @@ class HashTable:
             raise ValueError('Array size must be a positive integer.')
         self.size = size
         # instantiate N separate KVLL objects within a list
-        self.lists: list[KVLL] = [KVLL() for i in range(self.size)]
+        self.lists: list[KVList] = [KVList() for i in range(self.size)]
 
     @property
     def items(self) -> set[tuple]:

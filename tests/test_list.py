@@ -1,41 +1,41 @@
 """ Unit tests for a linked list. """
 
 import pytest
-from data_structures import linked_lists
-from data_structures.linked_lists import LinkedList
+from data_structures import lists
+from data_structures.lists import List
 
 
 @pytest.fixture
-def list_0() -> LinkedList:
+def list_0() -> List:
     """ Gets an empty LL instance. """
 
-    return LinkedList()
+    return List()
 
 
 @pytest.fixture
-def list_1() -> LinkedList:
+def list_1() -> List:
     """ Gets a LL instance with 1 element. """
 
-    ll = LinkedList()
+    ll = List()
     ll.add(1)
     return ll
 
 
 @pytest.fixture
-def list_2() -> LinkedList:
+def list_2() -> List:
     """ Gets a LL instance with 2 elements. """
 
-    ll = LinkedList()
+    ll = List()
     ll.add(1)
     ll.add(2)
     return ll
 
 
 @pytest.fixture
-def list_3() -> LinkedList:
+def list_3() -> List:
     """ Gets a LL instance with 3 elements. """
 
-    ll = LinkedList()
+    ll = List()
     ll.add(1)
     ll.add(2)
     ll.add(3)
@@ -43,10 +43,10 @@ def list_3() -> LinkedList:
 
 
 @pytest.fixture
-def odd_palindrom() -> LinkedList:
+def odd_palindrom() -> List:
     """ Gets a LL palindom instance with odd num elements. """
 
-    ll = LinkedList()
+    ll = List()
     ll.add(1)
     ll.add(2)
     ll.add(1)
@@ -54,10 +54,10 @@ def odd_palindrom() -> LinkedList:
 
 
 @pytest.fixture
-def even_palindrom() -> LinkedList:
+def even_palindrom() -> List:
     """ Gets a LL palindom instance with even num elements. """
 
-    ll = LinkedList()
+    ll = List()
     ll.add(1)
     ll.add(2)
     ll.add(2)
@@ -66,10 +66,10 @@ def even_palindrom() -> LinkedList:
 
 
 @pytest.fixture
-def two_palindrom() -> LinkedList:
+def two_palindrom() -> List:
     """ Gets a LL palindom instance with 2 elements. """
 
-    ll = LinkedList()
+    ll = List()
     ll.add(1)
     ll.add(2)
     ll.add(2)
@@ -89,7 +89,7 @@ def two_palindrom() -> LinkedList:
 def test_is_palindrome(ll: str, expected: bool, request):
     """ Tests correctness of the LL palindrom checker method. """
 
-    assert linked_lists.is_palindrom(request.getfixturevalue(ll)) == expected
+    assert lists.is_palindrom(request.getfixturevalue(ll)) == expected
 
 
 @pytest.mark.parametrize(argnames='ll',
@@ -111,11 +111,11 @@ def test_reverse(ll: str, request):
 def test_merge_sorted(l1: str, l2: str, expected: list[int], request):
     """ Tests correctness of the LL palindrom checker method. """
 
-    list1: LinkedList = request.getfixturevalue(l1)
+    list1: List = request.getfixturevalue(l1)
     list1.reverse()
-    list2: LinkedList = request.getfixturevalue(l2)
+    list2: List = request.getfixturevalue(l2)
     list2.reverse()
-    merged = linked_lists.merge_sorted(list1, list2)
+    merged = lists.merge_sorted(list1, list2)
     assert merged.to_list() == expected
 
 
@@ -126,7 +126,7 @@ def test_merge_sorted(l1: str, l2: str, expected: list[int], request):
                              (3, [3, 2, 1, 99]),
                              (4, [3, 2, 1]),
                          ])
-def test_add(list_3: LinkedList, i: int, expected: list[int]):
+def test_add(list_3: List, i: int, expected: list[int]):
     """ Tests adding elements at different indices. """
 
     list_3.add(99, index=i)
@@ -141,7 +141,7 @@ def test_add(list_3: LinkedList, i: int, expected: list[int]):
                              (4, [3, 2, 1]),
                              (-1, [3, 2, 1]),
                          ])
-def test_remove(list_3: LinkedList, i: int, expected: list[int]):
+def test_remove(list_3: List, i: int, expected: list[int]):
     """ Tests removing a node at index. """
 
     list_3.remove(i)
@@ -156,7 +156,7 @@ def test_remove(list_3: LinkedList, i: int, expected: list[int]):
                              (4, None),
                              (-1, None),
                          ])
-def test_get(list_3: LinkedList, i: int, expected: int):
+def test_get(list_3: List, i: int, expected: int):
     """ Tests value getter given index. """
 
     assert list_3.get(i) == expected
@@ -170,13 +170,13 @@ def test_get(list_3: LinkedList, i: int, expected: int):
                              (3, 0),
                              (-1, None),
                          ])
-def test_find(list_3: LinkedList, val: int, expected: int):
+def test_find(list_3: List, val: int, expected: int):
     """ Tests index finder. """
 
     assert list_3.find(val) == expected
 
 
-def test_size(list_3: LinkedList):
+def test_size(list_3: List):
     """ Tests list size counter. """
 
     assert list_3.size == 3
