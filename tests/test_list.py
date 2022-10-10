@@ -89,7 +89,8 @@ def two_palindrom() -> List:
 def test_is_palindrome(ll: str, expected: bool, request):
     """ Tests correctness of the LL palindrom checker method. """
 
-    assert lists.is_palindrom(request.getfixturevalue(ll)) == expected
+    llist = request.getfixturevalue(ll)
+    assert lists.is_palindrom(llist.head) == expected
 
 
 @pytest.mark.parametrize(argnames='ll',
@@ -195,3 +196,14 @@ def test_size(list_3: List):
     list_3.remove(0)
     list_3.remove(0)
     assert list_3.size == 0
+
+
+def test_cycle_exists(list_3: List):
+    """ Tests list cycle detector. """
+
+    assert not lists.has_cycle(list_3.head)
+    # make cycle and test positive
+    curr = list_3.head
+    curr = curr.next.next
+    curr.next = list_3.head
+    assert lists.has_cycle(list_3.head)
