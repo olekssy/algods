@@ -185,10 +185,8 @@ def merge_sorted(list1: List, list2: List) -> List:
     return merged
 
 
-def is_palindrom(linked_list: List) -> bool:
-    """ Checks if linked list values form a palidrom. """
-
-    head: ListNode = linked_list.head
+def is_palindrom(head: ListNode) -> bool:
+    """ Checks if list values form a palidrom. """
 
     if not head:
         # empty list is not a palindrom
@@ -246,6 +244,22 @@ def rotate(linked_list: List, k: int) -> None:
         last = last.next
     linked_list.head = last.next  # reassign head
     last.next = None  # break cycle
+
+
+def has_cycle(head: ListNode) -> bool:
+    """ Detects if list has a cycle in it. """
+
+    slow = head
+    fast = head
+    while fast and fast.next:
+        fast = fast.next
+        if not fast.next:
+            break
+        fast = fast.next
+        if fast == slow:
+            return True
+        slow = slow.next
+    return False
 
 
 if __name__ == '__main__':
