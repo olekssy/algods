@@ -27,3 +27,12 @@ def test_from_inorder_postorder(preorder, inorder, postorder):
     assert preorder == bt.pre_order(tree)
     assert inorder == bt.in_order(tree)
     assert postorder == bt.post_order(tree)
+
+
+def test_from_inorder_preorder(preorder, inorder, postorder):
+    """ Tests building a bnary tree from the inorder, preorder val lists. """
+
+    tree: BinTreeNode = bt.from_preorder_inorder(inorder, preorder)
+    assert preorder == bt.pre_order(tree)
+    assert inorder == bt.in_order(tree)
+    assert postorder == bt.post_order(tree)
