@@ -50,7 +50,7 @@ def post_order(root: trees.BinTreeNode) -> list[int]:
 
 def from_inorder_postorder(inorder: list[int],
                            postorder: list[int]) -> trees.BinTreeNode:
-    """ Builds a binary tree from the lists of inorder, postorder vals. """
+    """ Constructs a binary tree from inorder, postorder values lists. """
 
     inorder_map: dict = {v: i for i, v in enumerate(inorder)}
     idx = 1
@@ -71,7 +71,7 @@ def from_inorder_postorder(inorder: list[int],
 
 def from_preorder_inorder(inorder: list[int],
                           preorder: list[int]) -> trees.BinTreeNode:
-    """ Builds a binary tree from the lists of inorder, preorder vals. """
+    """ Constructs a binary tree from preorder, inorder values lists. """
 
     inorder_map: dict = {v: i for i, v in enumerate(inorder)}
     idx = 0
@@ -88,3 +88,8 @@ def from_preorder_inorder(inorder: list[int],
         return root
 
     return build(0, len(inorder) - 1)
+
+
+def from_preorder_postorder(preorder: list[int],
+                            postorder: list[int]) -> trees.BinTreeNode:
+    """ Constructs a binary tree from preorder, postorder values lists. """
