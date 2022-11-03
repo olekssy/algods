@@ -138,6 +138,24 @@ class List:
             self.head = curr
             curr = tail
 
+    def sort(self) -> None:
+        """ Sorts list inplace on val with the insertion sort algorithm.
+            Stable sort in O(n^2), O(1). """
+
+        sorted = ListNode()
+        curr = self.head
+        while curr:
+            prev = sorted
+
+            while prev.next and prev.next.val <= curr.val:
+                prev = prev.next
+
+            tail = curr.next
+            curr.next = prev.next
+            prev.next = curr
+            curr = tail
+        self.head = sorted.next
+
 
 # Linked List ops
 def merge_sorted(list1: List, list2: List) -> List:

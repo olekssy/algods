@@ -65,21 +65,8 @@ def even_palindrom() -> List:
     return ll
 
 
-@pytest.fixture
-def two_palindrom() -> List:
-    """ Gets a LL palindom instance with 2 elements. """
-
-    ll = List()
-    ll.add(1)
-    ll.add(2)
-    ll.add(2)
-    ll.add(1)
-    return ll
-
-
 @pytest.mark.parametrize(argnames=['ll', 'expected'],
                          argvalues=[
-                             ('two_palindrom', True),
                              ('odd_palindrom', True),
                              ('even_palindrom', True),
                              ('list_0', False),
@@ -207,3 +194,19 @@ def test_cycle_exists(list_3: List):
     curr = curr.next.next
     curr.next = list_3.head
     assert lists.has_cycle(list_3.head)
+
+
+@pytest.mark.parametrize(argnames=['lst', 'expected'],
+                         argvalues=[
+                             ('list_0', []),
+                             ('list_1', [1]),
+                             ('list_2', [1, 2]),
+                             ('list_3', [1, 2, 3]),
+                             ('even_palindrom', [1, 1, 2, 2]),
+                         ])
+def test_sort(lst: str, expected: list[int], request):
+    """ Tests insertion sort (ascending and reverse). """
+
+    llist = request.getfixturevalue(lst)
+    llist.sort()
+    assert llist.to_list() == expected
