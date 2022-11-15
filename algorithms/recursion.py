@@ -21,8 +21,6 @@ def pascals_triangle(depth: int) -> list[list[int]]:
         """ Calculates (i, j)-th value of the Pascal's triangle recursively
             with cache optimization. """
 
-        if i < 0 or j < 0:
-            return
         if i == j or not j:
             return 1
 
@@ -38,3 +36,23 @@ def pascals_triangle(depth: int) -> list[list[int]]:
         triangle.append([get_val(i, j, cache) for j in range(i + 1)])
 
     return triangle
+
+
+def fibonacci(depth: int) -> list[int]:
+    """ Creates the Fibonacci sequence of the given depth recursively. """
+
+    if depth < 0:
+        return list()
+
+    def get_val(i: int, cache: dict[int, int]) -> int:
+        """ Gets i-th Fibonacci value. """
+
+        if i < 2:
+            return 1
+        if i not in cache.keys():
+            cache[i] = get_val(i - 1, cache) + get_val(i - 2, cache)
+
+        return cache[i]
+
+    cache = dict()
+    return [get_val(i, cache) for i in range(depth)]

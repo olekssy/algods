@@ -28,3 +28,17 @@ def test_reverse_arr(arr: list[int], expected: list[int]):
                          ])
 def test_pascals_triangle(depth: int, expected: list[list[int]]):
     assert recursion.pascals_triangle(depth) == expected
+
+
+@pytest.mark.parametrize(argnames=['depth', 'expected'],
+                         argvalues=[
+                             (-3, []),
+                             (0, []),
+                             (1, [1]),
+                             (2, [1, 1]),
+                             (3, [1, 1, 2]),
+                             (5, [1, 1, 2, 3, 5]),
+                             (10, [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]),
+                         ])
+def test_fibonacci(depth: int, expected: list[list[int]]):
+    assert recursion.fibonacci(depth) == expected
