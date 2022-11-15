@@ -15,6 +15,12 @@ Native implementation with common methods and operations.
 * [Queue](data_structures/queues.py)
 * [Stack](data_structures/stacks.py)
 
+## Algorithms
+
+* [Dynamic programming](algorithms/recursion.py)
+* [Sorting](algorithms/array_sorting.py)
+* [Binary tree traversal](algorithms/binary_trees.py)
+
 ## Dependencies
 
 Install environment and dependencies with `pipenv sync --dev`
