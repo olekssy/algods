@@ -42,3 +42,14 @@ def test_pascals_triangle(depth: int, expected: list[list[int]]):
                          ])
 def test_fibonacci(depth: int, expected: list[list[int]]):
     assert recursion.fibonacci(depth) == expected
+
+
+@pytest.mark.parametrize(argnames=['x', 'n', 'expected'],
+                         argvalues=[
+                             (2, 0, 1),
+                             (2, 1, 2),
+                             (2, 10, 1024),
+                             (2, -10, 0.0009765625),
+                         ])
+def test_power(x: int, n: int, expected: float):
+    assert recursion.power(x, n) == expected
