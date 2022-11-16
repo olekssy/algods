@@ -56,3 +56,17 @@ def fibonacci(depth: int) -> list[int]:
 
     cache = dict()
     return [get_val(i, cache) for i in range(depth)]
+
+
+def power(x: int, n: int) -> float:
+    """ Raises x to the power of n recursively. """
+
+    if not n:
+        return 1
+    if n < 0:
+        # the topmost branch takes 1/x, creates recursive calls below
+        return 1 / power(x, -n)
+    if not n % 2:
+        # square x, reduce n by half. Tail recursion optimization.
+        return power(x * x, n // 2)
+    return x * power(x, n - 1)
