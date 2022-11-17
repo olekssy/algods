@@ -1,4 +1,6 @@
-""" Applied recursion algorithms. """
+""" Dynamic programming algorithms. """
+
+from data_structures import lists
 
 
 def reverse_arr(arr: int, i: int = 0):
@@ -70,3 +72,19 @@ def power(x: int, n: int) -> float:
         # square x, reduce n by half. Tail recursion optimization.
         return power(x * x, n // 2)
     return x * power(x, n - 1)
+
+
+def merge_sorted(list1: lists.ListNode,
+                 list2: lists.ListNode) -> lists.ListNode:
+    """ Merges two sorted linked lists recursively.
+        This method destroys input lists. """
+
+    if not list1 or not list2:
+        return list1 or list2
+
+    if list1.val < list2.val:
+        list1.next = merge_sorted(list1.next, list2)
+        return list1
+
+    list2.next = merge_sorted(list1, list2.next)
+    return list2
