@@ -88,3 +88,16 @@ def merge_sorted(list1: lists.ListNode,
 
     list2.next = merge_sorted(list1, list2.next)
     return list2
+
+
+def is_valid_bst(root, low=int('-inf'), high=int('+inf')) -> bool:
+    """ Validates binary search tree recursively in O(n), O(n). """
+
+    if not root:
+        return True
+
+    if root.val <= low or root.val >= high:
+        return False
+
+    return is_valid_bst(root.left, low, root.val) and is_valid_bst(
+        root.right, root.val, high)
