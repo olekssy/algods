@@ -3,10 +3,10 @@
 from data_structures import lists
 
 
-def reverse_arr(arr: int, i: int = 0):
+def reverse_arr(arr: list[int], i: int = 0):
     """ Reverses arr inplace with recursion. """
 
-    right = len(arr) - 1 - i
+    right: int = len(arr) - 1 - i
     if i >= right:
         return
     reverse_arr(arr, i + 1)
@@ -90,7 +90,7 @@ def merge_sorted(list1: lists.ListNode,
     return list2
 
 
-def is_valid_bst(root, low=int('-inf'), high=int('+inf')) -> bool:
+def is_valid_bst(root, low=float('-inf'), high=float('+inf')) -> bool:
     """ Validates binary search tree recursively in O(n), O(n). """
 
     if not root:
