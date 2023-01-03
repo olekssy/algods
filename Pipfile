@@ -12,7 +12,6 @@ statsmodels = "*"
 flake8 = "*"
 pytest = ">=5.4.3"
 yapf = "*"
-mypy = "*"
 
 [requires]
 python_version = "3.10"
